@@ -10,3 +10,33 @@
 // - excluding any business or buy/sell groups.
 // - Here is a link of a bunch of good groups in Massachusetts which you can use to understand what a community group looks like:
 // https://docs.google.com/spreadsheets/d/1kLJ84waTCy4mPdMviJZLP3H2C0Q1oPbDCfyCQhkwg5Y/edit?usp=sharing
+
+const groups = [
+  {
+    id: 1,
+    state: "Massachusetts",
+    groups: "Wonderful Westminster, MA",
+    members: 6500,
+    town: "Franklin",
+    private: true,
+    type: "town",
+  },
+  {
+    id: 2,
+    state: "Massachusetts",
+    groups: "Attleboro, MA Community Resources Page",
+    members: 8900,
+    town: "Franklin",
+    private: true,
+    type: "town",
+  },
+  {
+    id: 3,
+    state: "Massachusetts",
+    groups: "Wilbraham MA, Open Forum",
+    members: 9900,
+    town: "Vegas",
+    private: true,
+    type: "community",
+  },
+];
