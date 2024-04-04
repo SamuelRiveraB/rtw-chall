@@ -20,15 +20,19 @@ const groups = [
     town: "Franklin",
     private: true,
     type: "town",
+    lat: 42.082432,
+    lon: -71.396721,
   },
   {
     id: 2,
     state: "Massachusetts",
     groups: "Attleboro, MA Community Resources Page",
     members: 8900,
-    town: "Franklin",
+    town: "Close to Franklin",
     private: true,
     type: "town",
+    lat: 42.104181,
+    lon: -71.429003,
   },
   {
     id: 3,
@@ -38,6 +42,8 @@ const groups = [
     town: "Vegas",
     private: true,
     type: "community",
+    lat: 36.00375, // Fails here (Too far)
+    lon: -115.22615,
   },
   {
     id: 4,
@@ -47,6 +53,8 @@ const groups = [
     town: "Franklin",
     private: true,
     type: "community",
+    lat: 42.082432,
+    lon: -71.396721,
   },
   {
     id: 5,
@@ -56,6 +64,8 @@ const groups = [
     town: "Franklin",
     private: false, // Fails here (Should be private)
     type: "community",
+    lat: 42.082432,
+    lon: -71.396721,
   },
   {
     id: 6,
@@ -65,18 +75,56 @@ const groups = [
     town: "Franklin",
     private: true,
     type: "other", // Fails here (Should be either community or town)
+    lat: 42.082432,
+    lon: -71.396721,
   },
 ];
 
 function filterGroups(groups, town) {
   const filtered = groups.filter((group) => {
     return (
+      // town
+      isWithinRadius(group.lat, group.lon, 42.082432, -71.396721, 20) &&
       group.members >= 1000 &&
       group.private &&
       (group.type === "community" || group.type === "town")
     );
   });
   console.log(filtered);
+}
+
+function getDistance(lat1, lon1, lat2, lon2) {
+  // Haversine formula
+  const earthRadius = 6371;
+  const lat1Rad = toRadians(lat1);
+  const lon1Rad = toRadians(lon1);
+  const lat2Rad = toRadians(lat2);
+  const lon2Rad = toRadians(lon2);
+
+  const dLat = lat2Rad - lat1Rad;
+  const dLon = lon2Rad - lon1Rad;
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1Rad) *
+      Math.cos(lat2Rad) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = earthRadius * c;
+
+  console.log(distance);
+
+  return distance; // Distance in kilometers
+}
+
+function toRadians(degrees) {
+  return degrees * (Math.PI / 180);
+}
+
+function isWithinRadius(lat1, lon1, lat2, lon2, radius) {
+  const distance = getDistance(lat1, lon1, lat2, lon2);
+  return distance <= radius;
 }
 
 filterGroups(groups, "Franklin");
