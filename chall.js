@@ -83,7 +83,7 @@ const groups = [
 function filterGroups(groups, town, radius) {
   const filtered = groups.filter((group) => {
     return (
-      // town
+      // town is not used because the test lat and lon are given
       isWithinRadius(group.lat, group.lon, 42.082432, -71.396721, radius) &&
       group.members >= 1000 &&
       group.private &&
