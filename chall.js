@@ -80,11 +80,11 @@ const groups = [
   },
 ];
 
-function filterGroups(groups, town) {
+function filterGroups(groups, town, radius) {
   const filtered = groups.filter((group) => {
     return (
       // town
-      isWithinRadius(group.lat, group.lon, 42.082432, -71.396721, 20) &&
+      isWithinRadius(group.lat, group.lon, 42.082432, -71.396721, radius) &&
       group.members >= 1000 &&
       group.private &&
       (group.type === "community" || group.type === "town")
@@ -127,4 +127,4 @@ function isWithinRadius(lat1, lon1, lat2, lon2, radius) {
   return distance <= radius;
 }
 
-filterGroups(groups, "Franklin");
+filterGroups(groups, "Franklin", 20);
