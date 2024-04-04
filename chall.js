@@ -40,3 +40,12 @@ const groups = [
     type: "community",
   },
 ];
+
+function filterGroups(groups, town, state) {
+  const filtered = groups.filter((group) => {
+    return group.town === town || group.state === state;
+  });
+  console.log(filtered);
+}
+
+filterGroups(groups, "Franklin", "Massachusetts");
