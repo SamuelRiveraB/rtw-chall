@@ -39,13 +39,22 @@ const groups = [
     private: true,
     type: "community",
   },
+  {
+    id: 4,
+    state: "Massachussetts",
+    groups: "Wilbraham MA, Open Forum",
+    members: 999, // Fails here
+    town: "Franklin",
+    private: true,
+    type: "community",
+  },
 ];
 
-function filterGroups(groups, town, state) {
+function filterGroups(groups, town) {
   const filtered = groups.filter((group) => {
-    return group.town === town || group.state === state;
+    return group.members >= 1000;
   });
   console.log(filtered);
 }
 
-filterGroups(groups, "Franklin", "Massachusetts");
+filterGroups(groups, "Franklin");
