@@ -43,16 +43,38 @@ const groups = [
     id: 4,
     state: "Massachussetts",
     groups: "Wilbraham MA, Open Forum",
-    members: 999, // Fails here
+    members: 999, // Fails here (Min 1000 members)
     town: "Franklin",
     private: true,
     type: "community",
+  },
+  {
+    id: 5,
+    state: "Massachussetts",
+    groups: "Wilbraham MA, Open Forum",
+    members: 1000,
+    town: "Franklin",
+    private: false, // Fails here (Should be private)
+    type: "community",
+  },
+  {
+    id: 6,
+    state: "Massachussetts",
+    groups: "Wilbraham MA, Open Forum",
+    members: 1000,
+    town: "Franklin",
+    private: true,
+    type: "other", // Fails here (Should be either community or town)
   },
 ];
 
 function filterGroups(groups, town) {
   const filtered = groups.filter((group) => {
-    return group.members >= 1000;
+    return (
+      group.members >= 1000 &&
+      group.private &&
+      (group.type === "community" || group.type === "town")
+    );
   });
   console.log(filtered);
 }
